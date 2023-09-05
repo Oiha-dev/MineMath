@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "minemath",
+  "version": "${version}",
+  "name": "MineMath",
+  "description": "",
+  "authors": ["Gogoikawa"],
+  "contact": {
+    "repo": "https://github.com/cenes/MineMath"
+  },
+  "license": "All-Rights-Reserved",
+  "icon": "assets/minemath/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "org.minemath.client.MineMathClient"
+    ],
+    "main": [
+      "org.minemath.MineMathMain"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.14.22",
+    "fabric": "*",
+    "minecraft": "1.18"
+  }
+}
