@@ -5,7 +5,7 @@ import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.text.Text;
-import org.minemath.CustomScreen;
+import org.minemath.CalculatorScreen;
 
 public final class MinemathFabricClient implements ClientModInitializer {
     @Override
@@ -17,7 +17,7 @@ public final class MinemathFabricClient implements ClientModInitializer {
 
                 MinecraftClient.getInstance().execute(() -> {
                     MinecraftClient.getInstance().setScreen(
-                            new CustomScreen(Text.empty())
+                            new CalculatorScreen(Text.empty())
                     );
                 });
                 return 1;

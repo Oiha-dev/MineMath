@@ -4,19 +4,18 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
-import net.minecraft.client.gui.widget.TextWidget;
-import net.minecraft.client.util.Icons;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
-public class CustomScreen extends Screen {
+public class CalculatorScreen extends Screen {
 
     protected TextFieldWidget resultWidget;
-    final static Identifier calculatorTexture = new Identifier("minemath", "textures/calculator/calculator.png");
-    public CustomScreen(Text title) {
+    public final static Identifier CALCULATOR_TEXTURE = new Identifier("minemath", "textures/calculator/calculator.png");
+    public CalculatorScreen(Text title) {
         super(title);
     }
 
@@ -28,6 +27,15 @@ public class CustomScreen extends Screen {
         this.resultWidget = new TextFieldWidget(this.textRenderer, weightScale/2-42, heightScale/2-59, 77, 20, Text.of("grdg"));
         this.resultWidget.setDrawsBackground(false);
         addDrawableChild(this.resultWidget);
+
+        List<CalculatorButtonWidget> buttons = new ArrayList<>();
+
+        for (int i = 0; i < 35; i++) {
+            int x = i % 5;
+            int y = i / 5;
+            buttons.add(new CalculatorButtonWidget(weightScale/2-44 + x*18 , heightScale/2-40 + y*15, i));
+            addDrawableChild(buttons.get(buttons.size() - 1));
+        }
     }
 
     @Override
@@ -35,7 +43,7 @@ public class CustomScreen extends Screen {
         int weightScale = MinecraftClient.getInstance().getWindow().getScaledWidth();
         int heightScale = MinecraftClient.getInstance().getWindow().getScaledHeight();
 
-        context.drawTexture(calculatorTexture, weightScale/2-55, heightScale/2-77, 0, 0, 110, 154, 110, 154);
+        context.drawTexture(CALCULATOR_TEXTURE, weightScale/2-55, heightScale/2-77, 0, 0, 110, 154, 110, 154);
 
         super.render(context, mouseX, mouseY, delta);
     }
