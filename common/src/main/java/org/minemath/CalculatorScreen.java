@@ -35,12 +35,11 @@ public class CalculatorScreen extends Screen {
         for (int i = 0; i < 35; i++) {
             int x = i % 5;
             int y = i / 5;
+            int finalI = i;
             buttons.add(new CalculatorButtonWidget(weightScale/2-44 + x*18 , heightScale/2-40 + y*15, i,
                     (button) -> {
-                        String currentText = resultWidget.getText();
-                        String newText = currentText + button.getMessage().getString();
-                        resultWidget.setText(newText);
-                        resultString.setMathExpression(newText);
+                        resultString.buttonHandler(finalI);
+                        resultWidget.setText(resultString.getMathExpression());
                     }));
             addDrawableChild(buttons.get(buttons.size() - 1));
         }

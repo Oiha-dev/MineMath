@@ -1,5 +1,6 @@
 package org.minemath;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
@@ -21,9 +22,16 @@ public class CalculatorButtonWidget extends ButtonWidget {
 
     @Override
     protected void renderButton(DrawContext context, int mouseX, int mouseY, float delta) {
-        if (isClicked) {
+        int midX = MinecraftClient.getInstance().getWindow().getScaledWidth() / 2;
+        int midY = MinecraftClient.getInstance().getWindow().getScaledHeight() / 2;
+
+        if (isClicked && !this.isHovered()) {
+            isClicked = false;
+        }
+
+        if (isClicked && this.isHovered()) {
             context.drawTexture(textureOnClick, this.getX(), this.getY(), spriteNbr * 16, 0, 16, 13, 560, 13);
-        }else if (this.isHovered()) {
+        }else if (this.isHovered() && mouseX != midX && mouseY != midY) {
             context.drawTexture(textureOnHover, this.getX(), this.getY(), spriteNbr * 16, 0, 16, 13, 560, 13);
         } else {
             context.drawTexture(texture, this.getX(), this.getY(), spriteNbr * 16, 0, 16, 13, 560, 13);
