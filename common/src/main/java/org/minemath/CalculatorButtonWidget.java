@@ -14,11 +14,8 @@ public class CalculatorButtonWidget extends ButtonWidget {
     private final int spriteNbr;
     private boolean isClicked = false;
 
-    public CalculatorButtonWidget(int x, int y, int id) {
-        super(x, y, 16, 13, Text.empty(), button -> {
-            System.out.println(id);
-
-        }, ButtonWidget.DEFAULT_NARRATION_SUPPLIER);
+    public CalculatorButtonWidget(int x, int y, int id, PressAction onPress) {
+        super(x, y, 16, 13, Text.empty(), onPress, ButtonWidget.DEFAULT_NARRATION_SUPPLIER);
         this.spriteNbr = id;
     }
 

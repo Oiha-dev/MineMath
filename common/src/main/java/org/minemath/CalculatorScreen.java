@@ -13,8 +13,9 @@ import java.util.List;
 
 public class CalculatorScreen extends Screen {
 
-    protected TextFieldWidget resultWidget;
-    public final static Identifier CALCULATOR_TEXTURE = new Identifier("minemath", "textures/calculator/calculator.png");
+    private MathHandler resultString = new MathHandler();
+    private TextFieldWidget resultWidget;
+    private final static Identifier CALCULATOR_TEXTURE = new Identifier("minemath", "textures/calculator/calculator.png");
     public CalculatorScreen(Text title) {
         super(title);
     }
@@ -26,6 +27,7 @@ public class CalculatorScreen extends Screen {
 
         this.resultWidget = new TextFieldWidget(this.textRenderer, weightScale/2-42, heightScale/2-59, 77, 20, Text.of("grdg"));
         this.resultWidget.setDrawsBackground(false);
+        this.resultWidget.setText(resultString.getMathExpression());
         addDrawableChild(this.resultWidget);
 
         List<CalculatorButtonWidget> buttons = new ArrayList<>();
@@ -33,7 +35,13 @@ public class CalculatorScreen extends Screen {
         for (int i = 0; i < 35; i++) {
             int x = i % 5;
             int y = i / 5;
-            buttons.add(new CalculatorButtonWidget(weightScale/2-44 + x*18 , heightScale/2-40 + y*15, i));
+            buttons.add(new CalculatorButtonWidget(weightScale/2-44 + x*18 , heightScale/2-40 + y*15, i,
+                    (button) -> {
+                        String currentText = resultWidget.getText();
+                        String newText = currentText + button.getMessage().getString();
+                        resultWidget.setText(newText);
+                        resultString.setMathExpression(newText);
+                    }));
             addDrawableChild(buttons.get(buttons.size() - 1));
         }
     }
