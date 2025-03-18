@@ -38,6 +38,7 @@ public class CalculatorScreen extends Screen {
             int finalI = i;
             buttons.add(new CalculatorButtonWidget(weightScale/2-44 + x*18 , heightScale/2-40 + y*15, i,
                     (button) -> {
+                        resultString.setMathExpression(resultWidget.getText());
                         resultString.buttonHandler(finalI);
                         resultWidget.setText(resultString.getMathExpression());
                     }));

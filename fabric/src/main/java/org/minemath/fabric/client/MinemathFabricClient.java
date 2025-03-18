@@ -17,7 +17,7 @@ public final class MinemathFabricClient implements ClientModInitializer {
 
                 MinecraftClient.getInstance().execute(() -> {
                     MinecraftClient.getInstance().setScreen(
-                            new CalculatorScreen(Text.empty())
+                            new CalculatorScreen(Text.of("Calculator"))
                     );
                 });
                 return 1;

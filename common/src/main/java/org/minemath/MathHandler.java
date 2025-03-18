@@ -1,4 +1,5 @@
 package org.minemath;
+import net.minecraft.client.MinecraftClient;
 import org.apache.commons.jexl3.JexlBuilder;
 import org.apache.commons.jexl3.JexlContext;
 import org.apache.commons.jexl3.JexlEngine;
@@ -9,6 +10,7 @@ import java.util.HashMap;
 
 public class MathHandler {
     private String MathExpression = "";
+    private String PreviousExpression = "";
     private static final HashMap<Integer, String> mathExpressions = new HashMap<>() {{
         put(5, "√(");
         put(6, "π");
@@ -38,6 +40,9 @@ public class MathHandler {
         put(32, ".");
         put(34, "+");
     }};
+
+    public MathHandler() {
+    }
 
     public String getMathExpression() {
         return MathExpression;
@@ -94,19 +99,24 @@ public class MathHandler {
                 //TODO: Param Screen
                 break;
             case 3:
-                //TODO: ANS
+                if (PreviousExpression != "Error") {
+                    MathExpression = MathExpression + PreviousExpression;
+                }
                 break;
             case 4:
-                //TODO: AC
+                MathExpression = "";
                 break;
             case 8:
-                //TODO: DEL
+                if (MathExpression.length() > 0) {
+                MathExpression = MathExpression.substring(0, MathExpression.length() - 1);
+                }
                 break;
             case 9:
-                //TODO: OFF
+                MinecraftClient.getInstance().setScreen(null);
                 break;
             case 33:
                 MathExpression = calculateMathExpression();
+                PreviousExpression = MathExpression;
                 break;
             default:
                 MathExpression += mathExpressions.get(buttonId);
