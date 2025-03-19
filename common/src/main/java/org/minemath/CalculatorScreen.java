@@ -13,11 +13,16 @@ import java.util.List;
 
 public class CalculatorScreen extends Screen {
 
-    private MathHandler resultString = new MathHandler();
+    private final MathHandler resultMath = new MathHandler();
     private TextFieldWidget resultWidget;
     private final static Identifier CALCULATOR_TEXTURE = new Identifier("minemath", "textures/calculator/calculator.png");
+
     public CalculatorScreen(Text title) {
         super(title);
+    }
+
+    public void setResultMath(String resultMath) {
+        this.resultMath.setMathExpression(resultMath);
     }
 
     @Override
@@ -25,9 +30,9 @@ public class CalculatorScreen extends Screen {
         int weightScale = MinecraftClient.getInstance().getWindow().getScaledWidth();
         int heightScale = MinecraftClient.getInstance().getWindow().getScaledHeight();
 
-        this.resultWidget = new TextFieldWidget(this.textRenderer, weightScale/2-42, heightScale/2-59, 77, 20, Text.of("grdg"));
+        this.resultWidget = new TextFieldWidget(this.textRenderer, weightScale/2-40, heightScale/2-59, 75, 20, Text.empty());
         this.resultWidget.setDrawsBackground(false);
-        this.resultWidget.setText(resultString.getMathExpression());
+        this.resultWidget.setText(resultMath.getMathExpression());
         addDrawableChild(this.resultWidget);
 
         List<CalculatorButtonWidget> buttons = new ArrayList<>();
@@ -38,9 +43,9 @@ public class CalculatorScreen extends Screen {
             int finalI = i;
             buttons.add(new CalculatorButtonWidget(weightScale/2-44 + x*18 , heightScale/2-40 + y*15, i,
                     (button) -> {
-                        resultString.setMathExpression(resultWidget.getText());
-                        resultString.buttonHandler(finalI);
-                        resultWidget.setText(resultString.getMathExpression());
+                        resultMath.setMathExpression(resultWidget.getText());
+                        resultMath.buttonHandler(finalI);
+                        resultWidget.setText(resultMath.getMathExpression());
                     }));
             addDrawableChild(buttons.get(buttons.size() - 1));
         }

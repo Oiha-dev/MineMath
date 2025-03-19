@@ -1,16 +1,21 @@
 package org.minemath;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.text.Text;
 import org.apache.commons.jexl3.JexlBuilder;
 import org.apache.commons.jexl3.JexlContext;
 import org.apache.commons.jexl3.JexlEngine;
 import org.apache.commons.jexl3.JexlExpression;
 import org.apache.commons.jexl3.MapContext;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class MathHandler {
     private String MathExpression = "";
     private String PreviousExpression = "";
+    private List<String> MathList = new ArrayList<>();
+
     private static final HashMap<Integer, String> mathExpressions = new HashMap<>() {{
         put(5, "√(");
         put(6, "π");
@@ -44,6 +49,10 @@ public class MathHandler {
     public MathHandler() {
     }
 
+    public MathHandler(String mathExpression) {
+        MathExpression = mathExpression;
+    }
+
     public String getMathExpression() {
         return MathExpression;
     }
@@ -54,14 +63,11 @@ public class MathHandler {
 
     public String calculateMathExpression() {
         try {
-            // Create JexlEngine
             JexlEngine jexl = new JexlBuilder().create();
             JexlContext context = new MapContext();
 
-            // Add Math class to context
             context.set("Math", Math.class);
 
-            // Format expression for JEXL
             String jexlExpr = MathExpression
                     .replace("√(", "Math.sqrt(")
                     .replace("π", "Math.PI")
@@ -72,11 +78,9 @@ public class MathHandler {
                     .replace("e(", "Math.exp(")
                     .replace("^", "**");
 
-            // Evaluate expression
             JexlExpression expression = jexl.createExpression(jexlExpr);
             Object result = expression.evaluate(context);
 
-            // Format result: show integers without decimal point
             if (result instanceof Double) {
                 double d = (Double) result;
                 if (d == Math.floor(d) && !Double.isInfinite(d)) {
@@ -84,8 +88,10 @@ public class MathHandler {
                 }
             }
 
+            addToList();
             return String.valueOf(result);
         } catch (Exception e) {
+            System.out.println(e);
             return "Error";
         }
     }
@@ -93,7 +99,7 @@ public class MathHandler {
     public void buttonHandler(int buttonId) {
         switch (buttonId){
             case 0:
-                //TODO: History Screen
+                MinecraftClient.getInstance().setScreen(new HistoryScreen(Text.empty(), MathList));
                 break;
             case 1:
                 //TODO: Param Screen
@@ -120,6 +126,13 @@ public class MathHandler {
                 break;
             default:
                 MathExpression += mathExpressions.get(buttonId);
+        }
+    }
+
+    public void addToList() {
+        MathList.add(MathExpression);
+        if (MathExpression.length() > 5) {
+            MathList.remove(0);
         }
     }
 }
