@@ -1,21 +1,31 @@
 package org.minemath;
+
+import com.ezylang.evalex.bigmath.BigMathExpression;
+import com.ezylang.evalex.config.ExpressionConfiguration;
+import com.ezylang.evalex.data.EvaluationValue;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
-import org.apache.commons.jexl3.JexlBuilder;
-import org.apache.commons.jexl3.JexlContext;
-import org.apache.commons.jexl3.JexlEngine;
-import org.apache.commons.jexl3.JexlExpression;
-import org.apache.commons.jexl3.MapContext;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+/**
+ * Handles mathematical expression evaluation for the MineMath calculator.
+ * This class manages the current expression, calculation logic, and expression history.
+ * It uses EvalEx-big-math library for high-precision mathematical operations.
+ */
 public class MathHandler {
     private String MathExpression = "";
     private String PreviousExpression = "";
     private List<String> MathList = new ArrayList<>();
 
+    /** Map of button IDs to mathematical expressions. */
     private static final HashMap<Integer, String> mathExpressions = new HashMap<>() {{
         put(5, "√(");
         put(6, "π");
@@ -46,13 +56,6 @@ public class MathHandler {
         put(34, "+");
     }};
 
-    public MathHandler() {
-    }
-
-    public MathHandler(String mathExpression) {
-        MathExpression = mathExpression;
-    }
-
     public String getMathExpression() {
         return MathExpression;
     }
@@ -61,41 +64,75 @@ public class MathHandler {
         MathExpression = mathExpression;
     }
 
+    /**
+     * Evaluates the current mathematical expression and returns the result as a string.
+     * If an error occurs during calculation, returns "Error".
+     * The result is also added to the history list.
+     * @return the result of the mathematical expression
+     */
     public String calculateMathExpression() {
         try {
-            JexlEngine jexl = new JexlBuilder().create();
-            JexlContext context = new MapContext();
+            String exprStr = MathExpression;
 
-            context.set("Math", Math.class);
+            exprStr = handleFactorial(exprStr);
 
-            String jexlExpr = MathExpression
-                    .replace("√(", "Math.sqrt(")
-                    .replace("π", "Math.PI")
-                    .replace("sin(", "Math.sin(")
-                    .replace("cos(", "Math.cos(")
-                    .replace("tan(", "Math.tan(")
-                    .replace("log(", "Math.log10(")
-                    .replace("e(", "Math.exp(")
-                    .replace("^", "**");
+            exprStr = exprStr
+                    .replace("√(", "ROOT(")
+                    .replace("π", "PI()")
+                    .replace("e(", "EXP(")
+                    .replace("log(", "LOG10(")
+                    .replace("sin(", "SIN(")
+                    .replace("cos(", "COS(")
+                    .replace("tan(", "TAN(");
 
-            JexlExpression expression = jexl.createExpression(jexlExpr);
-            Object result = expression.evaluate(context);
+            ExpressionConfiguration config = ExpressionConfiguration.builder()
+                    .mathContext(new MathContext(15, RoundingMode.HALF_UP))
+                    .decimalPlacesRounding(10)
+                    .build();
 
-            if (result instanceof Double) {
-                double d = (Double) result;
-                if (d == Math.floor(d) && !Double.isInfinite(d)) {
-                    return String.format("%.0f", d);
-                }
+            BigMathExpression expression = new BigMathExpression(exprStr, config);
+            EvaluationValue result = expression.evaluate();
+
+            String resultStr;
+            BigDecimal value = result.getNumberValue();
+            if (value.stripTrailingZeros().scale() <= 0) {
+                resultStr = value.toBigInteger().toString();
+            } else {
+                resultStr = value.stripTrailingZeros().toPlainString();
             }
 
             addToList();
-            return String.valueOf(result);
+            return resultStr;
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("Calculation error: " + e.getMessage());
             return "Error";
         }
     }
 
+    /**
+     * Replaces factorial expressions in the given mathematical expression with the FACT function.
+     * @param expr the mathematical expression
+     * @return the expression with factorial expressions replaced
+     */
+    private String handleFactorial(String expr) {
+        Pattern pattern = Pattern.compile("(\\d+|\\([^)]+\\))!");
+        Matcher matcher = pattern.matcher(expr);
+
+        StringBuilder result = new StringBuilder();
+        while (matcher.find()) {
+            String match = matcher.group();
+            String arg = match.substring(0, match.length() - 1);
+            matcher.appendReplacement(result, "FACT(" + arg + ")");
+        }
+        matcher.appendTail(result);
+
+        return result.toString();
+    }
+
+    /**
+     * Handles button clicks for the calculator screen.
+     * @param buttonId the ID of the button clicked
+     */
     public void buttonHandler(int buttonId) {
         switch (buttonId){
             case 0:
@@ -105,7 +142,7 @@ public class MathHandler {
                 //TODO: Param Screen
                 break;
             case 3:
-                if (PreviousExpression != "Error") {
+                if (!PreviousExpression.equals("Error")) {
                     MathExpression = MathExpression + PreviousExpression;
                 }
                 break;
@@ -114,7 +151,7 @@ public class MathHandler {
                 break;
             case 8:
                 if (MathExpression.length() > 0) {
-                MathExpression = MathExpression.substring(0, MathExpression.length() - 1);
+                    MathExpression = MathExpression.substring(0, MathExpression.length() - 1);
                 }
                 break;
             case 9:
@@ -125,13 +162,19 @@ public class MathHandler {
                 PreviousExpression = MathExpression;
                 break;
             default:
-                MathExpression += mathExpressions.get(buttonId);
+                if (mathExpressions.containsKey(buttonId)) {
+                    MathExpression += mathExpressions.get(buttonId);
+                }
         }
     }
 
+    /**
+     * Adds the current expression to the history list.
+     * If the list exceeds 5 expressions, removes the oldest expression.
+     */
     public void addToList() {
         MathList.add(MathExpression);
-        if (MathExpression.length() > 5) {
+        if (MathList.size() > 5) {
             MathList.remove(0);
         }
     }

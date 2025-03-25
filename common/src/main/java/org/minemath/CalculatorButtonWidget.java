@@ -20,6 +20,11 @@ public class CalculatorButtonWidget extends ButtonWidget {
         this.spriteNbr = id;
     }
 
+    /**
+     * Render the button.
+     * This method is called every frame to render the button.
+     * It will change its texture depending on the state of the button
+     */
     @Override
     protected void renderButton(DrawContext context, int mouseX, int mouseY, float delta) {
         int midX = MinecraftClient.getInstance().getWindow().getScaledWidth() / 2;

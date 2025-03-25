@@ -25,6 +25,11 @@ public class CalculatorScreen extends Screen {
         this.resultMath.setMathExpression(resultMath);
     }
 
+    /**
+     * Initialize the calculator screen.
+     * This method is called when the screen is first opened.
+     * It initializes the calculator buttons and the result text field.
+     */
     @Override
     protected void init() {
         int weightScale = MinecraftClient.getInstance().getWindow().getScaledWidth();
@@ -51,6 +56,11 @@ public class CalculatorScreen extends Screen {
         }
     }
 
+    /**
+     * Render the calculator screen.
+     * This method is called every frame to render the calculator screen.
+     * It will render the calculator background and all the buttons.
+     */
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         int weightScale = MinecraftClient.getInstance().getWindow().getScaledWidth();

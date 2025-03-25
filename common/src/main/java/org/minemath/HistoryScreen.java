@@ -5,13 +5,11 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TextWidget;
-import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
 
 public class HistoryScreen extends Screen {
 
@@ -23,6 +21,14 @@ public class HistoryScreen extends Screen {
         this.MathList = MathList;
     }
 
+    /**
+     * Initialize the history screen.
+     * This method is called when the screen is first opened.
+     * It initializes the history buttons.
+     * The history buttons are used to display the history of previous calculations.
+     * The user can click on a history button to open the calculator screen with the corresponding expression.
+     * If the history is empty, a message is displayed instead.
+     */
     @Override
     public void init() {
         int weightScale = MinecraftClient.getInstance().getWindow().getScaledWidth();
