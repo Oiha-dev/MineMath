@@ -77,8 +77,9 @@ public class MathHandler {
 
             exprStr = handleFactorial(exprStr);
 
+            exprStr = exprStr.replaceAll("√\\(([^)]+)\\)", "ROOT($1, 2)");
+
             exprStr = exprStr
-                    .replace("√(", "ROOT(")
                     .replace("π", "PI()")
                     .replace("e(", "EXP(")
                     .replace("log(", "LOG10(")
