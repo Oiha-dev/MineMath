@@ -70,4 +70,75 @@ public class CalculatorScreen extends Screen {
 
         super.render(context, mouseX, mouseY, delta);
     }
+
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        switch (keyCode) {
+            case 257: // ENTER
+                resultMath.setMathExpression(resultWidget.getText());
+                resultMath.buttonHandler(33); // ID du bouton "="
+                resultWidget.setText(resultMath.getMathExpression());
+                return true;
+            case 259: // BACKSPACE
+                resultMath.setMathExpression(resultWidget.getText());
+                resultMath.buttonHandler(8); // ID du bouton "backspace"
+                resultWidget.setText(resultMath.getMathExpression());
+                return true;
+            default:
+                if (this.resultWidget.isFocused() && this.resultWidget.isVisible()) {
+                    return this.resultWidget.keyPressed(keyCode, scanCode, modifiers);
+                }
+                return super.keyPressed(keyCode, scanCode, modifiers);
+        }
+    }
+
+    @Override
+    public boolean charTyped(char chr, int modifiers) {
+        resultMath.setMathExpression(resultWidget.getText());
+
+        switch (chr) {
+            case '=':
+                resultMath.buttonHandler(33);
+                break;
+            case '+':
+                resultMath.buttonHandler(34);
+                break;
+            case '-':
+                resultMath.buttonHandler(29);
+                break;
+            case '*':
+                resultMath.buttonHandler(24);
+                break;
+            case '/':
+                resultMath.buttonHandler(19);
+                break;
+            case '(':
+                resultMath.buttonHandler(11);
+                break;
+            case ')':
+                resultMath.buttonHandler(12);
+                break;
+            case '%':
+                resultMath.buttonHandler(13);
+                break;
+            case '^':
+                resultMath.buttonHandler(7);
+                break;
+            case '.':
+                resultMath.buttonHandler(32);
+                break;
+            case '!':
+                resultMath.buttonHandler(14);
+                break;
+            default:
+                // for the other characters, we check if they are alphanumeric
+                if ((chr >= '0' && chr <= '9') || (chr >= 'a' && chr <= 'z') || (chr >= 'A' && chr <= 'Z')) {
+                    this.resultWidget.setFocused(true);
+                    return this.resultWidget.charTyped(chr, modifiers);
+                }
+        }
+
+        resultWidget.setText(resultMath.getMathExpression());
+        return true;
+    }
 }
