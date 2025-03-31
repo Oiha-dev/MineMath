@@ -1,17 +1,19 @@
 modLoader = "javafml"
 loaderVersion = "[47,)"
-#issueTrackerURL = ""
-license = "All Rights Reserved"
+issueTrackerURL = "https://github.com/Oiha-dev/minemath/issues"
+license = "Creative Commons BY-NC-SA 4.0"
 
 [[mods]]
 modId = "minemath"
 version = "${version}"
 displayName = "MineMath"
-authors = ""
+authors = "Oiha"
+displayURL = "https://oiha.fr"
+logoBlur = false
 description = '''
-
+MineMath - Your Mathematical GUI Calculator Companion in Minecraft
 '''
-#logoFile = ""
+logoFile = "assets/minemath/icon.png"
 
 [[dependencies.minemath]]
 modId = "forge"

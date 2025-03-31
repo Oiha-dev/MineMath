@@ -3,14 +3,16 @@
   "id": "minemath",
   "version": "${version}",
   "name": "MineMath",
-  "description": "",
+  "description": "MineMath - Your Mathematical GUI Calculator Companion in Minecraft",
   "authors": [
-    ""
+    "Oiha"
   ],
   "contact": {
-    "homepage": ""
+    "homepage": "https://oiha.fr",
+    "issues": "https://github.com/Oiha-dev/minemath/issues",
+    "sources": "https://github.com/Oiha-dev/minemath"
   },
-  "license": "All-Rights-Reserved",
+  "license": "Creative Commons BY-NC-SA 4.0",
   "icon": "assets/minemath/icon.png",
   "environment": "*",
   "entrypoints": {
@@ -26,8 +28,5 @@
     "minecraft": "~1.20.1",
     "java": ">=17",
     "fabric-api": "*"
-  },
-  "suggests": {
-    "another-mod": "*"
   }
 }
