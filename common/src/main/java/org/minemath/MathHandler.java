@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static org.minemath.HistoryScreen.MathList;
+
 /**
  * Handles mathematical expression evaluation for the MineMath calculator.
  * This class manages the current expression, calculation logic, and expression history.
@@ -23,7 +25,6 @@ import java.util.regex.Pattern;
 public class MathHandler {
     private String MathExpression = "";
     private String PreviousExpression = "";
-    private List<String> MathList = new ArrayList<>();
 
     /** Map of button IDs to mathematical expressions. */
     private static final HashMap<Integer, String> mathExpressions = new HashMap<>() {{
@@ -137,9 +138,6 @@ public class MathHandler {
         switch (buttonId){
             case 0:
                 MinecraftClient.getInstance().setScreen(new HistoryScreen(Text.empty(), MathList));
-                break;
-            case 1:
-                //TODO: Param Screen
                 break;
             case 3:
                 if (!PreviousExpression.equals("Error")) {

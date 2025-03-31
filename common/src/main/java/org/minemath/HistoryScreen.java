@@ -14,7 +14,7 @@ import java.util.List;
 public class HistoryScreen extends Screen {
 
     private final static Identifier HISTORY_TEXTURE = new Identifier("minemath", "textures/calculator/history.png");
-    private List<String> MathList;
+    public static List<String> MathList = new ArrayList<>();
 
     public HistoryScreen(Text title, List<String> MathList) {
         super(title);
@@ -44,8 +44,8 @@ public class HistoryScreen extends Screen {
 
         for (int i = 0; i < MathList.size(); i++) {
             int y = i % 5;
-            int finalI = i;
-            buttons.add(ButtonWidget.builder(Text.of(MathList.get(MathList.size()-i-1)), (button) -> {
+            int finalI = MathList.size() - 1 - i;
+            buttons.add(ButtonWidget.builder(Text.of(MathList.get(finalI)), (button) -> {
                         CalculatorScreen calculatorScreen = new CalculatorScreen(Text.empty());
                         calculatorScreen.setResultMath(MathList.get(finalI));
                         MinecraftClient.getInstance().setScreen(calculatorScreen);
