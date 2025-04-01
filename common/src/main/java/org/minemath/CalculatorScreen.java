@@ -79,6 +79,9 @@ public class CalculatorScreen extends Screen {
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         switch (keyCode) {
+            case 256: // ESCAPE
+                this.close();
+                return true;
             case 257: // ENTER
                 resultMath.setMathExpression(resultWidget.getText());
                 resultMath.buttonHandler(33); // ID du bouton "="
