@@ -71,6 +71,11 @@ public class CalculatorScreen extends Screen {
         super.render(context, mouseX, mouseY, delta);
     }
 
+    /**
+     * Handle key presses.
+     * This method is called when a key is pressed.
+     * It will handle the ENTER and BACKSPACE keys to perform calculations or delete characters.
+     */
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         switch (keyCode) {
@@ -92,6 +97,11 @@ public class CalculatorScreen extends Screen {
         }
     }
 
+    /**
+     * Handle character typing.
+     * This method is called when a character is typed.
+     * It will handle the characters that are not handled by the buttons.
+     */
     @Override
     public boolean charTyped(char chr, int modifiers) {
         resultMath.setMathExpression(resultWidget.getText());
