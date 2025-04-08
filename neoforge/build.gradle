@@ -37,6 +37,9 @@ dependencies {
     common(project(path: ':common', configuration: 'namedElements')) { transitive false }
     shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
 
+    shadowBundle "com.ezylang:EvalEx-big-math:1.0.1"
+    shadowBundle "com.ezylang:EvalEx:3.4.0"
+
     forgeRuntimeLibrary "com.ezylang:EvalEx-big-math:1.0.1"
     forgeRuntimeLibrary "com.ezylang:EvalEx:3.4.0"
 }
