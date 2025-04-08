@@ -1,7 +1,9 @@
 package org.minemath;
 
+import com.google.common.collect.Lists;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.Drawable;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TextWidget;
@@ -15,6 +17,8 @@ public class HistoryScreen extends Screen {
 
     private final static Identifier HISTORY_TEXTURE = new Identifier("minemath", "textures/calculator/history.png");
     public static List<String> MathList = new ArrayList<>();
+    private final List<Drawable> drawables = Lists.newArrayList();
+
 
     public HistoryScreen(Text title, List<String> MathList) {
         super(title);
@@ -38,7 +42,8 @@ public class HistoryScreen extends Screen {
 
         if (MathList.isEmpty()) {
             TextWidget textWidget = new TextWidget(weightScale/2-40, heightScale/2-62, 80, 20, Text.of("No history"), this.textRenderer);
-            addDrawableChild(textWidget);
+            addSelectableChild(textWidget);
+            this.drawables.add(textWidget);
             return;
         }
 
@@ -53,7 +58,8 @@ public class HistoryScreen extends Screen {
                     .position(weightScale/2-40 , heightScale/2-62 + y*25)
                     .size(80, 20)
                     .build());
-            addDrawableChild(buttons.get(buttons.size() - 1));
+            addSelectableChild(buttons.get(buttons.size() - 1));
+            this.drawables.add(buttons.get(buttons.size() - 1));
         }
     }
 
@@ -64,6 +70,8 @@ public class HistoryScreen extends Screen {
 
         context.drawTexture(HISTORY_TEXTURE, weightScale/2-55, heightScale/2-77, 0, 0, 110, 154, 110, 154);
 
-        super.render(context, mouseX, mouseY, delta);
+        for (Drawable drawable : drawables) {
+            drawable.render(context, mouseX, mouseY, delta);
+        }
     }
 }
