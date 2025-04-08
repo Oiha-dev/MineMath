@@ -26,7 +26,7 @@ public class CalculatorButtonWidget extends ButtonWidget {
      * It will change its texture depending on the state of the button
      */
     @Override
-    protected void renderButton(DrawContext context, int mouseX, int mouseY, float delta) {
+    protected void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
         int midX = MinecraftClient.getInstance().getWindow().getScaledWidth() / 2;
         int midY = MinecraftClient.getInstance().getWindow().getScaledHeight() / 2;
 

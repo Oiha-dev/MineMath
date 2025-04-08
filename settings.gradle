@@ -11,4 +11,4 @@ rootProject.name = 'minemath'
 
 include 'common'
 include 'fabric'
-include 'forge'
+include 'neoforge'

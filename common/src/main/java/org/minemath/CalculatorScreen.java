@@ -1,7 +1,9 @@
 package org.minemath;
 
+import com.google.common.collect.Lists;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.Drawable;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.text.Text;
@@ -13,6 +15,7 @@ import java.util.List;
 
 public class CalculatorScreen extends Screen {
 
+    private final List<Drawable> drawables = Lists.newArrayList();
     private final MathHandler resultMath = new MathHandler();
     private TextFieldWidget resultWidget;
     private final static Identifier CALCULATOR_TEXTURE = new Identifier("minemath", "textures/calculator/calculator.png");
@@ -38,6 +41,7 @@ public class CalculatorScreen extends Screen {
         this.resultWidget = new TextFieldWidget(this.textRenderer, weightScale/2-40, heightScale/2-59, 75, 20, Text.empty());
         this.resultWidget.setDrawsBackground(false);
         this.resultWidget.setText(resultMath.getMathExpression());
+        drawables.add(this.resultWidget);
         addDrawableChild(this.resultWidget);
 
         List<CalculatorButtonWidget> buttons = new ArrayList<>();
@@ -52,6 +56,7 @@ public class CalculatorScreen extends Screen {
                         resultMath.buttonHandler(finalI);
                         resultWidget.setText(resultMath.getMathExpression());
                     }));
+            drawables.add(buttons.get(buttons.size() - 1));
             addDrawableChild(buttons.get(buttons.size() - 1));
         }
     }
@@ -68,7 +73,10 @@ public class CalculatorScreen extends Screen {
 
         context.drawTexture(CALCULATOR_TEXTURE, weightScale/2-55, heightScale/2-77, 0, 0, 110, 154, 110, 154);
 
-        super.render(context, mouseX, mouseY, delta);
+        for(Drawable drawable : this.drawables) {
+            drawable.render(context, mouseX, mouseY, delta);
+        }
+
     }
 
     /**

@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[47,)"
+loaderVersion = "[2,)"
 issueTrackerURL = "https://github.com/Oiha-dev/minemath/issues"
 license = "Creative Commons BY-NC-SA 4.0"
 
@@ -16,16 +16,16 @@ MineMath - Your Mathematical GUI Calculator Companion in Minecraft
 logoFile = "assets/minemath/icon.png"
 
 [[dependencies.minemath]]
-modId = "forge"
-mandatory = true
-versionRange = "[47,)"
+modId = "neoforge"
+type = "required"
+versionRange = "[20.4,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.minemath]]
 modId = "minecraft"
-mandatory = true
-versionRange = "[1.20.1,)"
+type = "required"
+versionRange = "[1.20.4,)"
 ordering = "NONE"
 side = "BOTH"
 
