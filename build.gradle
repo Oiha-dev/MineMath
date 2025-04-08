@@ -34,12 +34,6 @@ subprojects {
     dependencies {
         minecraft "net.minecraft:minecraft:$rootProject.minecraft_version"
         mappings "net.fabricmc:yarn:$rootProject.yarn_mappings:v2"
-
-        implementation "com.ezylang:EvalEx:3.4.0"
-        include "com.ezylang:EvalEx:3.4.0"
-
-        implementation "com.ezylang:EvalEx-big-math:1.0.1"
-        include "com.ezylang:EvalEx-big-math:1.0.1"
     }
 
     java {
