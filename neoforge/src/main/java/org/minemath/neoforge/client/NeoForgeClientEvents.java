@@ -11,7 +11,7 @@ import net.neoforged.neoforge.client.event.RegisterClientCommandsEvent;
 import org.minemath.CalculatorScreen;
 import org.minemath.Minemath;
 
-@Mod.EventBusSubscriber(modid = Minemath.MOD_ID, value = Dist.CLIENT)
+@EventBusSubscriber(modid = Minemath.MOD_ID, value = Dist.CLIENT)
 public class NeoForgeClientEvents {
 
     @SubscribeEvent
@@ -28,7 +28,7 @@ public class NeoForgeClientEvents {
     }
 
     @SubscribeEvent
-    public static void onClientTick(TickEvent.ClientTickEvent event) {
+    public static void onClientTick(ClientTickEvent.Pre  event) {
         if (ModClientEvents.CALCULATOR_KEY.wasPressed()) {
             MinecraftClient.getInstance().execute(() ->
                     MinecraftClient.getInstance().setScreen(new CalculatorScreen(Text.of("Calculator")))
