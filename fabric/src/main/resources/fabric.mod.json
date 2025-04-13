@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "minemath",
-  "version": "${version}",
+  "version": "3.0.0",
   "name": "MineMath",
   "description": "MineMath - Your Mathematical GUI Calculator Companion in Minecraft",
   "authors": [
