@@ -44,14 +44,6 @@ dependencies {
     forgeRuntimeLibrary "com.ezylang:EvalEx:3.4.0"
 }
 
-processResources {
-    inputs.property 'version', project.version
-
-    filesMatching('META-INF/neoforge.mods.toml') {
-        expand version: project.version
-    }
-}
-
 shadowJar {
     configurations = [project.configurations.shadowBundle]
     archiveClassifier = 'dev-shadow'

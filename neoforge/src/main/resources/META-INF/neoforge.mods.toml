@@ -5,7 +5,7 @@ license = "Creative Commons BY-NC-SA 4.0"
 
 [[mods]]
 modId = "minemath"
-version = "${version}"
+version = "3.0.0"
 displayName = "MineMath"
 authors = "Oiha"
 displayURL = "https://oiha.fr"
