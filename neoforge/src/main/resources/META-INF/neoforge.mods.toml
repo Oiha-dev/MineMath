@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[2,)"
+loaderVersion = "[4,)"
 issueTrackerURL = "https://github.com/Oiha-dev/minemath/issues"
 license = "Creative Commons BY-NC-SA 4.0"
 
@@ -18,14 +18,14 @@ logoFile = "assets/minemath/icon.png"
 [[dependencies.minemath]]
 modId = "neoforge"
 type = "required"
-versionRange = "[20,)"
+versionRange = "[21.1,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.minemath]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.20.6,)"
+versionRange = "[1.21.1,)"
 ordering = "NONE"
 side = "BOTH"
 

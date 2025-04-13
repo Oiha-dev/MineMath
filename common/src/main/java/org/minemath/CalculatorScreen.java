@@ -18,7 +18,7 @@ public class CalculatorScreen extends Screen {
     private final List<Drawable> drawables = Lists.newArrayList();
     private final MathHandler resultMath = new MathHandler();
     private TextFieldWidget resultWidget;
-    private final static Identifier CALCULATOR_TEXTURE = new Identifier("minemath", "textures/calculator/calculator.png");
+    private final static Identifier CALCULATOR_TEXTURE = Identifier.of("minemath", "textures/calculator/calculator.png");
 
     public CalculatorScreen(Text title) {
         super(title);

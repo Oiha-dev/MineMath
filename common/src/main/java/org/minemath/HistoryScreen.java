@@ -15,7 +15,7 @@ import java.util.List;
 
 public class HistoryScreen extends Screen {
 
-    private final static Identifier HISTORY_TEXTURE = new Identifier("minemath", "textures/calculator/history.png");
+    private final static Identifier HISTORY_TEXTURE = Identifier.of("minemath", "textures/calculator/history.png");
     public static List<String> MathList = new ArrayList<>();
     private final List<Drawable> drawables = Lists.newArrayList();
 

@@ -39,14 +39,6 @@ dependencies {
     shadowBundle "com.ezylang:EvalEx:3.4.0"
 }
 
-//processResources {
-//    inputs.property 'version', project.version
-//
-//    filesMatching('fabric.mod.json') {
-//        expand version: project.version
-//    }
-//}
-
 shadowJar {
     configurations = [project.configurations.shadowBundle]
     archiveClassifier = 'dev-shadow'

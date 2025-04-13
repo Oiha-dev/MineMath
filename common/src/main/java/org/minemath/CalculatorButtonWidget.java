@@ -8,9 +8,9 @@ import net.minecraft.util.Identifier;
 
 public class CalculatorButtonWidget extends ButtonWidget {
 
-    private final Identifier texture = new Identifier("minemath", "textures/buttons/buttons-spritesheet.png");
-    private final Identifier textureOnHover = new Identifier("minemath", "textures/buttons/buttons-spritesheet-hover.png");
-    private final Identifier textureOnClick = new Identifier("minemath", "textures/buttons/buttons-spritesheet-clicked.png");
+    private final Identifier texture = Identifier.of("minemath", "textures/buttons/buttons-spritesheet.png");
+    private final Identifier textureOnHover = Identifier.of("minemath", "textures/buttons/buttons-spritesheet-hover.png");
+    private final Identifier textureOnClick = Identifier.of("minemath", "textures/buttons/buttons-spritesheet-clicked.png");
 
     private final int spriteNbr;
     private boolean isClicked = false;
