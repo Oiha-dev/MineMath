@@ -7,6 +7,7 @@ import net.minecraft.client.gui.Drawable;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TextWidget;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
@@ -68,7 +69,7 @@ public class HistoryScreen extends Screen {
         int weightScale = MinecraftClient.getInstance().getWindow().getScaledWidth();
         int heightScale = MinecraftClient.getInstance().getWindow().getScaledHeight();
 
-        context.drawTexture(HISTORY_TEXTURE, weightScale/2-55, heightScale/2-77, 0, 0, 110, 154, 110, 154);
+        context.drawTexture(RenderLayer::getGuiTextured, HISTORY_TEXTURE, weightScale/2-55, heightScale/2-77, 0, 0, 110, 154, 110, 154);
 
         for (Drawable drawable : drawables) {
             drawable.render(context, mouseX, mouseY, delta);

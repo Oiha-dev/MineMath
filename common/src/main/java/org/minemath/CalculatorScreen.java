@@ -6,6 +6,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Drawable;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
@@ -71,7 +72,7 @@ public class CalculatorScreen extends Screen {
         int weightScale = MinecraftClient.getInstance().getWindow().getScaledWidth();
         int heightScale = MinecraftClient.getInstance().getWindow().getScaledHeight();
 
-        context.drawTexture(CALCULATOR_TEXTURE, weightScale/2-55, heightScale/2-77, 0, 0, 110, 154, 110, 154);
+        context.drawTexture(RenderLayer::getGuiTextured, CALCULATOR_TEXTURE, weightScale/2-55, heightScale/2-77 ,0.0f, 0.0f, 110, 154, 110, 154);
 
         for(Drawable drawable : this.drawables) {
             drawable.render(context, mouseX, mouseY, delta);

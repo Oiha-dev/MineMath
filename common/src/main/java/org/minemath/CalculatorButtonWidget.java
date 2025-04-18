@@ -3,6 +3,7 @@ package org.minemath;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
@@ -35,11 +36,11 @@ public class CalculatorButtonWidget extends ButtonWidget {
         }
 
         if (isClicked && this.isHovered()) {
-            context.drawTexture(textureOnClick, this.getX(), this.getY(), spriteNbr * 16, 0, 16, 13, 560, 13);
+            context.drawTexture(RenderLayer::getGuiTextured, textureOnClick, this.getX(), this.getY(), spriteNbr * 16, 0, 16, 13, 560, 13);
         }else if (this.isHovered() && mouseX != midX && mouseY != midY) {
-            context.drawTexture(textureOnHover, this.getX(), this.getY(), spriteNbr * 16, 0, 16, 13, 560, 13);
+            context.drawTexture(RenderLayer::getGuiTextured, textureOnHover, this.getX(), this.getY(), spriteNbr * 16, 0, 16, 13, 560, 13);
         } else {
-            context.drawTexture(texture, this.getX(), this.getY(), spriteNbr * 16, 0, 16, 13, 560, 13);
+            context.drawTexture(RenderLayer::getGuiTextured, texture, this.getX(), this.getY(), spriteNbr * 16, 0, 16, 13, 560, 13);
         }
     }
 
