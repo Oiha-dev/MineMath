@@ -1,7 +1,9 @@
 package org.minemath.forge.screen;
 
+import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.StringWidget;
@@ -16,6 +18,7 @@ public class HistoryScreen extends Screen {
 
     private final static ResourceLocation HISTORY_TEXTURE = ResourceLocation.fromNamespaceAndPath("minemath", "textures/calculator/history.png");
     public static List<String> MathList = new ArrayList<>();
+    private final List<Renderable> drawables = Lists.newArrayList();
 
     public HistoryScreen(Component title, List<String> MathList) {
         super(title);
@@ -39,7 +42,8 @@ public class HistoryScreen extends Screen {
 
         if (MathList.isEmpty()) {
             StringWidget textWidget = new StringWidget(weightScale/2-40, heightScale/2-62, 80, 20, Component.literal("No history"), this.font);
-            addRenderableWidget(textWidget);
+            addWidget(textWidget);
+            this.drawables.add(textWidget);
             return;
         }
 
@@ -54,7 +58,8 @@ public class HistoryScreen extends Screen {
                     .pos(weightScale/2-40 , heightScale/2-62 + y*25)
                     .size(80, 20)
                     .build());
-            addRenderableWidget(buttons.get(buttons.size() - 1));
+            addWidget(buttons.get(buttons.size() - 1));
+            this.drawables.add(buttons.get(buttons.size() - 1));
         }
     }
 
@@ -63,8 +68,10 @@ public class HistoryScreen extends Screen {
         int weightScale = Minecraft.getInstance().getWindow().getGuiScaledWidth();
         int heightScale = Minecraft.getInstance().getWindow().getGuiScaledHeight();
 
-        context.blit(RenderType::guiTexturedOverlay, HISTORY_TEXTURE, weightScale/2-55, heightScale/2-77, 0, 0, 110, 154, 110, 154);
+        context.blit(HISTORY_TEXTURE, weightScale/2-55, heightScale/2-77, 0, 0, 110, 154, 110, 154);
 
-        super.render(context, mouseX, mouseY, delta);
+        for (Renderable drawable : drawables) {
+            drawable.render(context, mouseX, mouseY, delta);
+        }
     }
 }

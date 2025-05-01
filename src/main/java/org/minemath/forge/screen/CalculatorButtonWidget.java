@@ -36,11 +36,11 @@ public class CalculatorButtonWidget extends Button {
         }
 
         if (isClicked && this.isHovered()) {
-            context.blit(RenderType::guiTexturedOverlay, textureOnClick, this.getX(), this.getY(), spriteNbr * 16, 0, 16, 13, 560, 13);
+            context.blit(textureOnClick, this.getX(), this.getY(), spriteNbr * 16, 0, 16, 13, 560, 13);
         }else if (this.isHovered() && mouseX != midX && mouseY != midY) {
-            context.blit(RenderType::guiTexturedOverlay, textureOnHover, this.getX(), this.getY(), spriteNbr * 16, 0, 16, 13, 560, 13);
+            context.blit(textureOnHover, this.getX(), this.getY(), spriteNbr * 16, 0, 16, 13, 560, 13);
         } else {
-            context.blit(RenderType::guiTexturedOverlay, texture, this.getX(), this.getY(), spriteNbr * 16, 0, 16, 13, 560, 13);
+            context.blit(texture, this.getX(), this.getY(), spriteNbr * 16, 0, 16, 13, 560, 13);
         }
     }
 

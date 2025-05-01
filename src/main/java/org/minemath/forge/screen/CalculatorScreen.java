@@ -2,6 +2,7 @@ package org.minemath.forge.screen;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.renderer.RenderType;
@@ -15,6 +16,7 @@ import java.util.List;
 
 public class CalculatorScreen extends Screen {
 
+    private final List<Renderable> drawables = new ArrayList<>();
     private final MathHandler resultMath = new MathHandler();
     private EditBox resultWidget;
     private final static ResourceLocation CALCULATOR_TEXTURE = ResourceLocation.fromNamespaceAndPath("minemath", "textures/calculator/calculator.png");
@@ -40,6 +42,7 @@ public class CalculatorScreen extends Screen {
         this.resultWidget = new EditBox(this.font, weightScale/2-40, heightScale/2-59, 75, 20, Component.empty());
         this.resultWidget.setBordered(false);
         this.resultWidget.setValue(resultMath.getMathExpression());
+        drawables.add(this.resultWidget);
         addRenderableWidget(this.resultWidget);
 
         List<CalculatorButtonWidget> buttons = new ArrayList<>();
@@ -54,6 +57,7 @@ public class CalculatorScreen extends Screen {
                         resultMath.buttonHandler(finalI);
                         resultWidget.setValue(resultMath.getMathExpression());
                     }));
+            drawables.add(buttons.get(buttons.size() - 1));
             addRenderableWidget(buttons.get(buttons.size() - 1));
         }
     }
@@ -68,9 +72,11 @@ public class CalculatorScreen extends Screen {
         int weightScale = Minecraft.getInstance().getWindow().getGuiScaledWidth();
         int heightScale = Minecraft.getInstance().getWindow().getGuiScaledHeight();
 
-        context.blit(RenderType::guiTexturedOverlay, CALCULATOR_TEXTURE, weightScale/2-55, heightScale/2-77, 0, 0, 110, 154, 110, 154);
+        context.blit(CALCULATOR_TEXTURE, weightScale/2-55, heightScale/2-77, 0, 0, 110, 154, 110, 154);
 
-        super.render(context, mouseX, mouseY, delta);
+        for(Renderable drawable : this.drawables) {
+            drawable.render(context, mouseX, mouseY, delta);
+        }
     }
 
     /**
