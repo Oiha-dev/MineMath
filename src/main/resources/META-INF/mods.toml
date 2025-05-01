@@ -1,11 +1,11 @@
 modLoader = "javafml"
-loaderVersion = "[55,)"
+loaderVersion="${loader_version_range}"
 issueTrackerURL = "https://github.com/Oiha-dev/minemath/issues"
 license = "Creative Commons BY-NC-SA 4.0"
 
 [[mods]]
 modId = "minemath"
-version = "3.0.0"
+version="${mod_version}"
 displayName = "MineMath"
 authors = "Oiha"
 displayURL = "https://oiha.fr"
@@ -18,14 +18,14 @@ logoFile = "assets/minemath/icon.png"
 [[dependencies.minemath]]
 modId = "forge"
 mandatory = true
-versionRange = "[55,)"
+versionRange="${forge_version_range}"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.minemath]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.21.5,)"
+versionRange="${minecraft_version_range}"
 ordering = "NONE"
 side = "BOTH"
 
