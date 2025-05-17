@@ -91,6 +91,7 @@ public class CalculatorScreen extends Screen {
             case 256: // ESCAPE
                 this.close();
                 return true;
+            case 335: //KP ENTER
             case 257: // ENTER
                 resultMath.setMathExpression(resultWidget.getText());
                 resultMath.buttonHandler(33); // ID du bouton "="
