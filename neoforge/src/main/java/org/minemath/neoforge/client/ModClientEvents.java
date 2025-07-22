@@ -9,7 +9,7 @@ import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import org.lwjgl.glfw.GLFW;
 import org.minemath.Minemath;
 
-@EventBusSubscriber(modid = Minemath.MOD_ID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = Minemath.MOD_ID, value = Dist.CLIENT)
 public class ModClientEvents {
 
     public static final KeyBinding CALCULATOR_KEY = new KeyBinding(

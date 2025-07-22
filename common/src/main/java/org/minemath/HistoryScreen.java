@@ -1,7 +1,9 @@
 package org.minemath;
 
 import com.google.common.collect.Lists;
+import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Drawable;
 import net.minecraft.client.gui.screen.Screen;
@@ -69,7 +71,7 @@ public class HistoryScreen extends Screen {
         int weightScale = MinecraftClient.getInstance().getWindow().getScaledWidth();
         int heightScale = MinecraftClient.getInstance().getWindow().getScaledHeight();
 
-        context.drawTexture(RenderLayer::getGuiTextured, HISTORY_TEXTURE, weightScale/2-55, heightScale/2-77, 0, 0, 110, 154, 110, 154);
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, HISTORY_TEXTURE, weightScale/2-55, heightScale/2-77, 0, 0, 110, 154, 110, 154);
 
         for (Drawable drawable : drawables) {
             drawable.render(context, mouseX, mouseY, delta);
