@@ -18,6 +18,19 @@ public final class MinemathFabricClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         System.out.println("Minemath Fabric Client");
+
+        // Register a custom keybind category
+        String categoryId = "key.categories.minemath";
+        KeyBindingHelper.registerCategory(categoryId);
+
+        // Register the calculator keybind using the registered category
+        keyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.minemath.open_calculator", // translation key (optional but best practice)
+                InputUtil.Type.KEYSYM,
+                GLFW.GLFW_KEY_N,
+                categoryId // ← must be a registered category ID
+        ));
+
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             dispatcher.register(CommandManager.literal("calculator").executes(context -> {
                 MinecraftClient.getInstance().execute(() -> {
@@ -29,14 +42,6 @@ public final class MinemathFabricClient implements ClientModInitializer {
             }));
         });
 
-        // Register the calculator keybind
-        keyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                "Open Calculator",
-                InputUtil.Type.KEYSYM,
-                GLFW.GLFW_KEY_N,
-                "MineMath"
-        ));
-
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (keyBinding.wasPressed()) {
                 MinecraftClient.getInstance().execute(() -> {
@@ -46,6 +51,5 @@ public final class MinemathFabricClient implements ClientModInitializer {
                 });
             }
         });
-
     }
 }
